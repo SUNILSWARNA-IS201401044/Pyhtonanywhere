@@ -1,0 +1,60 @@
+
+<!-- load the path to our static files -->
+{% extends 'music/base.html' %}
+{% block title %} ALbum Details {% endblock %}
+{% block body %}
+<div class="albums-container container-fluid">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+    <!-- Albums -->
+    <div class="row">
+
+        {% if all_albums %}
+            {% for album in all_albums %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                        <a href="#">
+                            <img src="{{ album.logo.url }}" class="img-responsive">
+                        </a>
+                        <div class="caption">
+                            <h2>{{ album.title }}</h2>
+                          <!--  <h4>{{ album.created_date}}</h4>
+                              -->
+                            <!-- View Details -->
+                            <a href="{% url 'music:detail' album.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                            <!-- Delete Album -->
+                         
+                                
+                                <button onclick="delete_album({{album.id}})" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+
+
+                            <!-- Favorite Album
+                            <a href="" class="btn btn-default btn-sm btn-favorite" role="button">
+                                <span class="glyphicon glyphicon-star {% if album.is_favorite %}active{% endif %}"></span>
+                            </a>
+                              -->
+                              <script type="text/javascript">
+                                  window.delete_album = function(aid) {$.get('/music/'+aid+"/delete_album", function(){location.reload();});}
+                              </script>
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'music:post_new' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span> Add Photos
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

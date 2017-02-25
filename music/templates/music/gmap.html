@@ -1,0 +1,51 @@
+<html>
+<head>
+<body>
+	<h1>
+		<center>
+			
+		</center>
+		<div id="mapholder"></div>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAJ15BbQwlN0XqfqqeNY6uWNkZt0KtbfP4&sensor=false"></script>
+<script type="text/javascript">
+    var lat = 13.511499;
+    var lon = 80.014366;
+		var marker;
+		var map;
+
+    var myOption;
+    var contents;
+    latlon = new google.maps.LatLng(lat,lon);
+    mapholder = document.getElementById('mapholder')
+    mapholder.style.height = '500px';
+    mapholder.style.width = '500px';
+    myOptions = {
+    center:latlon,zoom:14,
+    mapTypeId:google.maps.MapTypeId.ROADMAP,
+    mapTypeControl:false,
+    navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+    }
+    map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
+    marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+//google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+</body>
+
+</html>
