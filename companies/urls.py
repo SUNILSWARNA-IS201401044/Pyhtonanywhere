@@ -4,5 +4,7 @@ app_name='companies'
 urlpatterns = [
 url(r'^index/$',views.index,name='index'),
 url(r'^post/new/$', views.transport_new, name='post_new'),
+url(r'^detail/(?P<album_id>[0-9]+)/$', views.StockList1.as_view(), name='detail'),
+url(r'^albdetail/(?P<album_id>[0-9]+)/$', views.albdetail, name='albdetail'),
 ]
 
