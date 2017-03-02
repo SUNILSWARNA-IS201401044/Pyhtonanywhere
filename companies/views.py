@@ -34,6 +34,7 @@ def transport_new(request):
     else:
         form = StockForm()
     return render(request, 'companies/transport_edit.html', {'form': form})
+@csrf_exempt
 def index(request):
     all_albums = Stock1.objects.all()
     albums = {'s1':[],'s2':[],'s3':[]}
