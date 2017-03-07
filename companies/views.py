@@ -52,6 +52,29 @@ def albdetail(request, album_id):
 
     return render(request, 'companies/imgdetail.html', {'album': album})
 
+def test(request):
+    return render(request,'companies/test.html')
+def service(request):
+    return render(request,'companies/service.html')
+def team(request):
+    return render(request,'companies/team.html')
+def login(request):
+    return render(request,'companies/login.html')
+def problems(request):
+    all_albums = Stock1.objects.all()
+    albums = {'s1':[],'s2':[],'s3':[]}
+    for x in xrange(0,all_albums.count()):
+        if  x % 3 == 0:
+            albums['s1'].append(all_albums[x])
+        elif  x % 3 == 1:
+            albums['s2'].append(all_albums[x])
+        else:
+            albums['s3'].append(all_albums[x])
+
+    return render(request,'companies/problems.html',{'albums':albums})
+@csrf_exempt
+def contact(request):
+    return render(request,'companies/contact.html')
 
 
 class StockList(APIView):
@@ -71,9 +94,11 @@ class StockList1(APIView):
         m=serializer.data
 
         k=str(m['data'])
+        m=k.replace("\n","")
+        m=m.replace('\r','')
         #ls.append(k)
         #ls.append(type(k))
-        return Response(k)
+        return Response(m)
         #content = {'user_count': ls}
         #return Response(content)
     def post(self):
