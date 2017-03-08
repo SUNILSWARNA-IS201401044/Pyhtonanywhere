@@ -15,7 +15,7 @@ from django.http import HttpResponseRedirect, request
 
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render,redirect
-
+from django.core.mail import send_mail
 
 #Lists all stocks or create a new onedef transport_new(request):
    ##return render(request,'music/transport_edit.html',{'form':form})
@@ -72,11 +72,13 @@ def problems(request):
             albums['s3'].append(all_albums[x])
 
     return render(request,'companies/problems.html',{'albums':albums})
-@csrf_exempt
 def contact(request):
-    return render(request,'companies/contact.html')
-
-
+    if request.method=="POST":
+        li=[]
+        spe=send_mail('From','rwkjngk','techlangz@gmail.com',['sunil.k14@iiits.in'])
+        return render(request,'companies/test.html')
+    else:
+        return render(request,'companies/contact.html')
 class StockList(APIView):
     def get(self,request):
         stocks=Stock1.objects.all()

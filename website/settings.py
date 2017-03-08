@@ -15,7 +15,13 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_HOST_USER ='techlangz@gmail.com'
+EMAIL_HOST_PASSWORD ='asusz1234'
+EMAIL_PORT = 587
+EMAIL_USE_TLS= True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -25,7 +31,7 @@ SECRET_KEY = '&24m3@p)$qm5whw(81)5i18ytnl34u(s7x3n&o92^$2^am2!se'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['112.133.196.2','34.206.101.184']
 
 
 # Application definition
