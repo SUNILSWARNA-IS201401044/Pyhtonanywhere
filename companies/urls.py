@@ -12,5 +12,7 @@ url(r'^team/$', views.team, name='team'),
 url(r'^problems/$', views.problems, name='problems'),
 url(r'^contact/$', views.contact, name='contact'),
 url(r'^login/$', views.login, name='login'),
+
+url(r'^register/$', views.register, name='register'),
 ]
 

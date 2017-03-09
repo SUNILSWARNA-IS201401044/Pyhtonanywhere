@@ -11,12 +11,12 @@ from django.views import generic
 from django.views.generic.edit  import CreateView
 from django.views.generic import  View
 from .forms import StockForm
-from django.http import HttpResponseRedirect, request
-
+from django.http import  request
+from django.http import HttpResponseRedirect,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render,redirect
 from django.core.mail import send_mail
-
+from django.contrib import messages
 #Lists all stocks or create a new onedef transport_new(request):
    ##return render(request,'music/transport_edit.html',{'form':form})
 @csrf_exempt
@@ -59,7 +59,10 @@ def service(request):
 def team(request):
     return render(request,'companies/team.html')
 def login(request):
-    return render(request,'companies/login.html')
+    return render(request,'companies/newLogin.html')
+def register(request):
+    return render(request,'companies/newRegister.html')
+
 def problems(request):
     all_albums = Stock1.objects.all()
     albums = {'s1':[],'s2':[],'s3':[]}
@@ -75,9 +78,16 @@ def problems(request):
 def contact(request):
     if request.method=="POST":
         li=[]
-        spe=send_mail('From','rwkjngk','techlangz@gmail.com',['sunil.k14@iiits.in'])
-        return render(request,'companies/test.html')
+        li.append(str(request.POST['email']))
+        li.append('ramuklinus369@gmail.com')
+        try:
+            spe=send_mail('From'+' '+str(request.POST['name'])+' '+'About'+' ' +str(request.POST['subject']),request.POST['message'],'ramuklinus369@gmail.com',li)
+            messages.success(request,'Send Mail Succesfullu')
+            return redirect('companies:test')
+        except:
+            return HttpResponse("Could not process your Request")
     else:
+        messages.success(request,'Send Mail Succesfullu')
         return render(request,'companies/contact.html')
 class StockList(APIView):
     def get(self,request):
