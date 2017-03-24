@@ -5,12 +5,12 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Stock1
+from .models import Stock1,Useer
 from .serializers import StockSerializer
 from django.views import generic
 from django.views.generic.edit  import CreateView
 from django.views.generic import  View
-from .forms import StockForm
+from .forms import StockForm,UserForm,UserProfileForm,LoginForm
 from django.http import  request
 from django.http import HttpResponseRedirect,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -19,6 +19,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 #Lists all stocks or create a new onedef transport_new(request):
    ##return render(request,'music/transport_edit.html',{'form':form})
+
 @csrf_exempt
 def transport_new(request):
     if request.method == "POST":
@@ -47,6 +48,7 @@ def index(request):
             albums['s3'].append(all_albums[x])
 
     return render(request, 'companies/index.html',{'albums':albums})
+
 def albdetail(request, album_id):
     album =Stock1.objects.get(pk=album_id)
 
@@ -60,8 +62,25 @@ def team(request):
     return render(request,'companies/team.html')
 def login(request):
     return render(request,'companies/newLogin.html')
+@csrf_exempt
 def register(request):
-    return render(request,'companies/newRegister.html')
+        if request.method=="POST":
+            reg=Useer()
+            l=Useer.objects.filter(email1=str(request.POST['email']))
+            if len(l)>=1:
+                redirect('companies:rregister')
+
+            else :
+                reg.user1=str(request.POST['first_name'])
+                reg.pass1=str(request.POST['password'])
+                reg.email1=str(request.POST['email'])
+                reg.Adhar=str(request.POST['adhar_no'])
+                reg.save()
+                return redirect('companies:index')
+        return render(request,'companies/newRegister.html')
+def rregister(request):
+    messages.success(request, 'Sorry, already registered')
+    return render(request,'companies/newRegister.html',{'error': 'Already Registerd'})
 
 def problems(request):
     all_albums = Stock1.objects.all()
@@ -82,12 +101,11 @@ def contact(request):
         li.append('ramuklinus369@gmail.com')
         try:
             spe=send_mail('From'+' '+str(request.POST['name'])+' '+'About'+' ' +str(request.POST['subject']),request.POST['message'],'ramuklinus369@gmail.com',li)
-            messages.success(request,'Send Mail Succesfullu')
             return redirect('companies:test')
         except:
             return HttpResponse("Could not process your Request")
     else:
-        messages.success(request,'Send Mail Succesfullu')
+        # messages.success(request,'Send Mail Succesfullu')
         return render(request,'companies/contact.html')
 class StockList(APIView):
     def get(self,request):
@@ -115,3 +133,41 @@ class StockList1(APIView):
         #return Response(content)
     def post(self):
         pass
+
+class Login1(APIView):
+    def post(self,request):
+        reg=Useer()
+        l=Useer.objects.filter(email1=str(request.POST['email']))
+
+        if len(l)>1:
+           n=1
+           k=[{"error":"false","dup":n}]
+           return Response(k)
+        else :
+            reg.user1=="none"
+            reg.pass1=str(request.POST['password'])
+            reg.email1=str(request.POST['email'])
+            reg.Adhar="shanmukh"
+            reg.save()
+            k=[{"error":"false","dup":0}]
+            return Response(k)
+
+    def get(self,request):
+        form = LoginForm()
+        return render(request, 'companies/login_new.html', {'form': form})
+
+class Loginc(APIView):
+    def post(self,request):
+        reg=Useer()
+        l=Useer.objects.filter(email1=str(request.POST['email']),pass1=str(request.POST['password']))
+
+        if len(l)>=1:
+           k=[{"error":1}]
+           return Response(k)
+        else :
+            k=[{"error":0}]
+            return Response(k)
+
+    def get(self,request):
+        form = LoginForm()
+        return render(request, 'companies/login_new.html', {'form': form})

@@ -155,6 +155,17 @@
 .login:not(.loading) button:focus {
   border-bottom-width: 4px;
 }
+.alert-success{
+    background: #05ff3d80;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  .close {
+    display: inline;
+    border: 1px solid black;
+    cursor: pointer;
+  }
 
 footer {
   display: block;
@@ -178,9 +189,19 @@ footer a, footer a:link {
 
 <body>
   <div class="wrapper">
-  <form class="login" role="form" action="#" method="POST" accept-charset="UTF-8">
-      {% csrf_token %}
       <p class="title">Register</p>
+
+  <form class="login" role="form" action="" method="POST" accept-charset="UTF-8">
+      {% csrf_token %}
+        {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success" role="alert">
+        {{message.message}}
+        <div class="close">X</div>
+      </div>
+      {% endfor %}
+      {% endif %}
+
       <!-- <input name="username" type="email" class="form-control" id="username" placeholder="Email Address" required> -->
       <!-- <input name="first_name" type="text" class="form-control" id="first_name" placeholder="First Name" autofocus required> -->
       <div class="form-group">
@@ -202,7 +223,7 @@ footer a, footer a:link {
           <input name="email" type="email" id="email" placeholder="Email Address" required>
           <i class="fa fa-envelope"></i>
           </div>
-        <input name="username" type="text" id="username" placeholder="Re-enter E-mail" required>
+        <input name="remail" type="text" id="remail" placeholder="Re-enter E-mail" required>
 
 
           <div class="form-group">
@@ -214,23 +235,16 @@ footer a, footer a:link {
           </div>
       <div class="form-group">
             <div class="offset-lg-2 col-lg-10">
-              <span class="text-danger small">{{ user_form.password.errors }}</span>
+              <span class="text-danger small">{{ user_form.rpassword.errors }}</span>
             </div>
-            <input name="password" type="password" id="password1" placeholder="Confirm Password" required>
+            <input name="rpassword" type="password" id="password1" placeholder="Confirm Password" required>
             <i class="fa fa-key"></i>
           </div>
       <div class="form-group">
         <div class="offset-lg-2 col-lg-10">
-          <span class="text-danger small">{{ user_form.address.errors }}</span>
+          <span class="text-danger small">{{ user_form.adhar_no.errors }}</span>
         </div>
-        <input name="address" type="text"  id="address" placeholder="Locality name..." required>
-        <i class="fa fa-home"></i>
-      </div>
-      <div class="form-group">
-        <div class="offset-lg-2 col-lg-10">
-          <span class="text-danger small">{{ user_form.phone_no.errors }}</span>
-        </div>
-        <input name="phone_no" type="text"  id="phone_no" placeholder="Phone number" required>
+        <input name="adhar_no" type="text"  id="adhar_no" placeholder="Aadhar number" required>
       <i class="fa fa-user"></i>
     </div>
           <button>
@@ -244,7 +258,11 @@ footer a, footer a:link {
   </p>
 </div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
+<script type="text/javascript">
+  $(".close").click(function(){
+    $(".alert-success").hide();
+  });
+</script>
     <script src="js/index.js"></script>
 
 </body>

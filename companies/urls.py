@@ -12,7 +12,9 @@ url(r'^team/$', views.team, name='team'),
 url(r'^problems/$', views.problems, name='problems'),
 url(r'^contact/$', views.contact, name='contact'),
 url(r'^login/$', views.login, name='login'),
-
+url(r'^rregister/$', views.rregister, name='rregister'),
 url(r'^register/$', views.register, name='register'),
+url(r'^login1/$', views.Login1.as_view(), name='login1_new'),
+url(r'^loginc/$', views.Loginc.as_view(), name='loginc_new'),
 ]
 
