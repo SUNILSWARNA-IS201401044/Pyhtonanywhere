@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Stock1,Useer,Dummy
-from .serializers import StockSerializer ,  StockSerializer1
+from .serializers import StockSerializer ,  StockSerializer1 ,ProbSerializer
 from django.views import generic
 from django.views.generic.edit  import CreateView
 from django.views.generic import  View
@@ -304,3 +304,34 @@ def signup(request):
         form =NewForm()
     return render(request, 'companies/signup.html', {'form': form})
 
+
+def deleteProblem(request,getPid):
+    temp = Stock1.objects.get(pk=getPid)
+    temp.delete()
+    #Problem1 = Stock1.objects.all()
+   # return render(request,'companies/try1.html',{'Problem': Problem1})
+    return HttpResponseRedirect('/companies/')
+def display(request,getPid):
+    temp=Stock1.objects.get(pk=getPid)
+    return render(request,'companies/display.html',{'Problem':temp})
+
+
+def updateStatus(request):
+    if request.method == 'POST':
+        Status = int(request.POST['status'])
+        Pid = int(request.POST['pid'])
+        pri=int(request.POST['priority'])
+        temp = Stock1.objects.get(pk=Pid)
+        temp.status = Status
+        temp.priority=pri
+        temp.save()
+    return HttpResponseRedirect('/companies/')
+
+class ProbList(APIView):
+    def get(self,request):
+        probs=Stock1.objects.all()
+        serializer=ProbSerializer(probs,many=True)
+        content={'user_details':serializer.data}
+        return Response(content)
+    def post(self):
+        pass

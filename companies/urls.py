@@ -29,7 +29,10 @@ url(r'^$',views.home, name='home'),
 url(r'^login2/$', auth_views.login, {'template_name': 'companies/login.html'}, name='login2'),
 url(r'^logout/$', auth_views.logout, {'next_page': 'companies:login2'}, name='logout'),
 url(r'^signup/$', views.signup, name='signup'),
-
-
+url(r'^display/(?P<getPid>\d+)/$',views.display,name='display'),
+url(r'^delete/(?P<getPid>\d+)/$', views.deleteProblem, name='deleteProblem'),
+url(r'^update/$', views.updateStatus, name='update'),
+url(r'^ser/$',views.ProbList.as_view()),
 ]
+
 

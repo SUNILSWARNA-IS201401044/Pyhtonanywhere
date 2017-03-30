@@ -12,3 +12,8 @@ class StockSerializer1(serializers.ModelSerializer):
 	class Meta:
 		model=Stock1
 		fields=('desc','id')
+class ProbSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model=Stock1
+        fields=('id','status','priority','email1','desc')

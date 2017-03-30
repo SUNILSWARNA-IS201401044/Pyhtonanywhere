@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block body %}<br>
-Image:<br>
+Image: <img src="data:image/jpeg;base64,{{Problem.data}}" alt="" width="200px" height="200px" /><br>
 <h1>Description:  {{Problem.desc}}</h1>
   <h2>Status:   {{Problem.status}}</h2>
   <h3>Priority: {{Problem.priority}} </h3>

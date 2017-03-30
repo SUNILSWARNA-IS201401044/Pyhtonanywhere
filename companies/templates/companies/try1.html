@@ -18,11 +18,23 @@
 <tr>
 <td><a href="display/{{P.id}}">{{P.id}}</a></td><td> {{P.desc}}</td><td> {{P.status}}</td><td>{{P.priority}}</td>
 
+<form  action="{% url "companies:update" %}" method="POST" accept-charset="UTF-8">
+  {% csrf_token %}
+<td>  <input name="status" type="Integer"  id="status" value="{{P.status }}"></td>
+  <input name = "pid" id="pid" value="{{P.id}}" type="hidden" >
+<td> <input name="priority" type="text"  id="priority" value="{{ P.priority }}"></td>
+
+<td>  <button type="submit">
+    <i class="spinner"></i>
+    <span class="state">Update</span>
+  </button></td>
+
+</form>
 
 
 
 <td>
-<p>
+<p><a href="delete/{{P.id}}">Delete </a> </p>
 </td></tr>
 
 {% endfor %}
