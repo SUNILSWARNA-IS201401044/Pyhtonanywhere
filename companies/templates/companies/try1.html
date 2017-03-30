@@ -1,0 +1,30 @@
+
+{% block content %}
+  <h2>Welcome, Mr.{{ user.username }}!</h2>
+
+
+{% if user.is_authenticated %}
+  <a href="{% url 'companies:logout' %}">logout</a>
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+<body>
+<table>
+  <thead>
+    <tr><td>Token</td><td>Description</td><td>Status</td><td>Priority</td><td>UpdateStatus</td><td>SetPriority</td><td></td><td>Click Delete to invalidate the problem</td></tr>
+  </thead>
+  {% for P in Problem %}
+<tr>
+<td><a href="display/{{P.id}}">{{P.id}}</a></td><td> {{P.desc}}</td><td> {{P.status}}</td><td>{{P.priority}}</td>
+
+
+
+
+<td>
+<p>
+</td></tr>
+
+{% endfor %}
+</table>
+{% endblock %}

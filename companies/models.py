@@ -9,8 +9,11 @@ class Stock1(models.Model):
         db_column='data',
         blank=True)
     desc= models.TextField(blank=True)
-    lat=models.TextField(blank=True)
-    log=models.TextField(blank=True)
+    lati=models.TextField(blank=True)
+    long=models.TextField(blank=True)
+    email1=models.TextField(blank=True)
+    status = models.IntegerField(default = 0,blank=True)
+    priority=models.IntegerField(default=0,blank=True)
     def __str__(self):
         return self.desc
 
@@ -31,3 +34,9 @@ class Useer(models.Model):
 	pass1=models.CharField(max_length=15)
 	email1=models.CharField(max_length=20)
 	Adhar=models.CharField(max_length=14,default = '1234-5678-9012')
+
+class Dummy(models.Model):
+	duser1=models.CharField(max_length=15)
+	bf=models.IntegerField(default=0)
+	def __str__(self):
+		return self.duser1

@@ -129,3 +129,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT= "/home/ramuk369/Pyhtonanywhere/media"
 MEDIA_URL='/media/'
+
+LOGIN_URL='companies:login2'
+LOGOUT_URL='companies:logout'
+LOGIN_REDIRECT_URL='companies:home'

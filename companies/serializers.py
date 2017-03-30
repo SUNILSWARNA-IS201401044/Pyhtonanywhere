@@ -8,3 +8,7 @@ class StockSerializer(serializers.ModelSerializer):
 		#fields='_all_'
 
 
+class StockSerializer1(serializers.ModelSerializer):
+	class Meta:
+		model=Stock1
+		fields=('desc','id')
