@@ -68,7 +68,7 @@ def index(request):
 def albdetail(request, album_id):
     album =Stock1.objects.get(pk=album_id)
 
-    return render(request, 'companies/imgdetail.html', {'album': album})
+    return render(request, 'companies/imgdetail.html', {'Problem': album})
 
 def test(request):
     return render(request,'companies/test.html')
